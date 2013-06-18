@@ -2,7 +2,6 @@
 //  GameSettingsManager.m
 //  PokerGameClient
 //
-//  Created by Jacob Kanipe-Illig on 6/14/13.
 //  Copyright (c) 2013 jacobhyphenated. All rights reserved.
 //
 
@@ -16,6 +15,7 @@
 
 +(void)saveServerUrl:(NSString*)serverURL{
     [[NSUserDefaults standardUserDefaults] setObject:serverURL forKey:@"ServerURL"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 +(NSInteger)getGameId {
@@ -24,6 +24,16 @@
 
 +(void)saveGameId:(NSInteger)gameId{
     [[NSUserDefaults standardUserDefaults] setInteger:gameId forKey:@"GameID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(NSInteger)getHandId{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"HandID"];
+}
+
++(void)saveHandId:(NSInteger)handId{
+    [[NSUserDefaults standardUserDefaults] setInteger:handId forKey:@"HandID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

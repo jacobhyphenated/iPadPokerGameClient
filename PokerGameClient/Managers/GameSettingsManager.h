@@ -2,7 +2,6 @@
 //  GameSettingsManager.h
 //  PokerGameClient
 //
-//  Created by Jacob Kanipe-Illig on 6/14/13.
 //  Copyright (c) 2013 jacobhyphenated. All rights reserved.
 //
 
@@ -14,5 +13,7 @@
 +(void)saveServerUrl:(NSString*)serverURL;
 +(NSInteger)getGameId;
 +(void)saveGameId:(NSInteger)gameId;
++(NSInteger)getHandId;
++(void)saveHandId:(NSInteger)handId;
 
 @end

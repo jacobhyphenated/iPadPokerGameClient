@@ -157,6 +157,9 @@
 		51429904176BADD900F4A514 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51429903176BADD900F4A514 /* CFNetwork.framework */; };
 		51429906176BADEA00F4A514 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51429905176BADEA00F4A514 /* SystemConfiguration.framework */; };
 		51429908176BADF300F4A514 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51429907176BADF300F4A514 /* MobileCoreServices.framework */; };
+		5142990C176F434100F4A514 /* CreateGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142990A176F434100F4A514 /* CreateGameViewController.m */; };
+		5142990D176F434100F4A514 /* CreateGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5142990B176F434100F4A514 /* CreateGameViewController.xib */; };
+		5142991117709DC500F4A514 /* CardImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142991017709DC500F4A514 /* CardImageManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,7 +196,7 @@
 		51429784176B643E00F4A514 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		51429788176B679800F4A514 /* PokerGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerGameViewController.h; sourceTree = "<group>"; };
 		51429789176B679800F4A514 /* PokerGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerGameViewController.m; sourceTree = "<group>"; };
-		5142978A176B679800F4A514 /* PokerGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PokerGameViewController.xib; sourceTree = "<group>"; };
+		5142978A176B679800F4A514 /* PokerGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PokerGameViewController.xib; path = ViewControllers/PokerGameViewController.xib; sourceTree = "<group>"; };
 		514297F7176B685800F4A514 /* ace_clubs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ace_clubs.png; sourceTree = "<group>"; };
 		514297F8176B685800F4A514 /* ace_clubs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ace_clubs@2x.png"; sourceTree = "<group>"; };
 		514297F9176B685800F4A514 /* ace_diamonds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ace_diamonds.png; sourceTree = "<group>"; };
@@ -302,7 +305,7 @@
 		51429860176B687D00F4A514 /* two_spades@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "two_spades@2x.png"; sourceTree = "<group>"; };
 		514298CB176B95B200F4A514 /* ServerSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerSelectionViewController.h; sourceTree = "<group>"; };
 		514298CC176B95B200F4A514 /* ServerSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerSelectionViewController.m; sourceTree = "<group>"; };
-		514298CD176B95B200F4A514 /* ServerSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerSelectionViewController.xib; sourceTree = "<group>"; };
+		514298CD176B95B200F4A514 /* ServerSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ServerSelectionViewController.xib; path = ViewControllers/ServerSelectionViewController.xib; sourceTree = "<group>"; };
 		514298D0176B988B00F4A514 /* button_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_red.png; sourceTree = "<group>"; };
 		514298D1176B988B00F4A514 /* button_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_green.png; sourceTree = "<group>"; };
 		514298D5176B9A8500F4A514 /* GameSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettingsManager.h; sourceTree = "<group>"; };
@@ -329,6 +332,11 @@
 		51429903176BADD900F4A514 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		51429905176BADEA00F4A514 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		51429907176BADF300F4A514 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		51429909176F434100F4A514 /* CreateGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGameViewController.h; sourceTree = "<group>"; };
+		5142990A176F434100F4A514 /* CreateGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGameViewController.m; sourceTree = "<group>"; };
+		5142990B176F434100F4A514 /* CreateGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreateGameViewController.xib; path = ViewControllers/CreateGameViewController.xib; sourceTree = "<group>"; };
+		5142990F17709DC500F4A514 /* CardImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardImageManager.h; sourceTree = "<group>"; };
+		5142991017709DC500F4A514 /* CardImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardImageManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,11 +403,10 @@
 		5142974B176B615A00F4A514 /* PokerGameClient */ = {
 			isa = PBXGroup;
 			children = (
+				5142990E176F434B00F4A514 /* XIBs */,
 				514298D4176B9A5200F4A514 /* Managers */,
 				51429787176B677000F4A514 /* ViewControllers */,
 				5142977A176B622D00F4A514 /* Images */,
-				51429754176B615A00F4A514 /* AppDelegate.h */,
-				51429755176B615A00F4A514 /* AppDelegate.m */,
 				5142974C176B615A00F4A514 /* Supporting Files */,
 			);
 			path = PokerGameClient;
@@ -408,13 +415,15 @@
 		5142974C176B615A00F4A514 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5142974D176B615A00F4A514 /* PokerGameClient-Info.plist */,
-				5142974E176B615A00F4A514 /* InfoPlist.strings */,
-				51429751176B615A00F4A514 /* main.m */,
-				51429753176B615A00F4A514 /* PokerGameClient-Prefix.pch */,
+				51429754176B615A00F4A514 /* AppDelegate.h */,
+				51429755176B615A00F4A514 /* AppDelegate.m */,
+				5142975B176B615A00F4A514 /* Default-568h@2x.png */,
 				51429757176B615A00F4A514 /* Default.png */,
 				51429759176B615A00F4A514 /* Default@2x.png */,
-				5142975B176B615A00F4A514 /* Default-568h@2x.png */,
+				5142974E176B615A00F4A514 /* InfoPlist.strings */,
+				51429751176B615A00F4A514 /* main.m */,
+				5142974D176B615A00F4A514 /* PokerGameClient-Info.plist */,
+				51429753176B615A00F4A514 /* PokerGameClient-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -441,8 +450,6 @@
 		5142977A176B622D00F4A514 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				514298D0176B988B00F4A514 /* button_red.png */,
-				514298D1176B988B00F4A514 /* button_green.png */,
 				514297F7176B685800F4A514 /* ace_clubs.png */,
 				514297F8176B685800F4A514 /* ace_clubs@2x.png */,
 				514297F9176B685800F4A514 /* ace_diamonds.png */,
@@ -451,6 +458,8 @@
 				514297FC176B685800F4A514 /* ace_hearts@2x.png */,
 				514297FD176B685800F4A514 /* ace_spades.png */,
 				514297FE176B685800F4A514 /* ace_spades@2x.png */,
+				514298D1176B988B00F4A514 /* button_green.png */,
+				514298D0176B988B00F4A514 /* button_red.png */,
 				514297FF176B685800F4A514 /* card_bg.jpg */,
 				51429800176B685800F4A514 /* card_bg@2x.jpg */,
 				51429801176B685800F4A514 /* eight_clubs.png */,
@@ -477,6 +486,8 @@
 				51429816176B685B00F4A514 /* four_hearts@2x.png */,
 				51429817176B685B00F4A514 /* four_spades.png */,
 				51429818176B685B00F4A514 /* four_spades@2x.png */,
+				51429783176B643E00F4A514 /* Icon-72.png */,
+				51429784176B643E00F4A514 /* Icon-72@2x.png */,
 				51429819176B685C00F4A514 /* jack_clubs.png */,
 				5142981A176B685C00F4A514 /* jack_clubs@2x.png */,
 				5142981B176B685C00F4A514 /* jack_diamonds.png */,
@@ -549,8 +560,6 @@
 				5142985E176B687B00F4A514 /* two_hearts@2x.png */,
 				5142985F176B687C00F4A514 /* two_spades.png */,
 				51429860176B687D00F4A514 /* two_spades@2x.png */,
-				51429783176B643E00F4A514 /* Icon-72.png */,
-				51429784176B643E00F4A514 /* Icon-72@2x.png */,
 			);
 			name = Images;
 			path = images;
@@ -559,12 +568,12 @@
 		51429787176B677000F4A514 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				51429909176F434100F4A514 /* CreateGameViewController.h */,
+				5142990A176F434100F4A514 /* CreateGameViewController.m */,
 				51429788176B679800F4A514 /* PokerGameViewController.h */,
 				51429789176B679800F4A514 /* PokerGameViewController.m */,
-				5142978A176B679800F4A514 /* PokerGameViewController.xib */,
 				514298CB176B95B200F4A514 /* ServerSelectionViewController.h */,
 				514298CC176B95B200F4A514 /* ServerSelectionViewController.m */,
-				514298CD176B95B200F4A514 /* ServerSelectionViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -572,6 +581,8 @@
 		514298D4176B9A5200F4A514 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5142990F17709DC500F4A514 /* CardImageManager.h */,
+				5142991017709DC500F4A514 /* CardImageManager.m */,
 				514298D5176B9A8500F4A514 /* GameSettingsManager.h */,
 				514298D6176B9A8500F4A514 /* GameSettingsManager.m */,
 			);
@@ -603,6 +614,16 @@
 			);
 			name = AFNetworking;
 			path = AFNetworking/AFNetworking;
+			sourceTree = "<group>";
+		};
+		5142990E176F434B00F4A514 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				5142990B176F434100F4A514 /* CreateGameViewController.xib */,
+				5142978A176B679800F4A514 /* PokerGameViewController.xib */,
+				514298CD176B95B200F4A514 /* ServerSelectionViewController.xib */,
+			);
+			name = XIBs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -792,6 +813,7 @@
 				514298CF176B95B200F4A514 /* ServerSelectionViewController.xib in Resources */,
 				514298D2176B988B00F4A514 /* button_red.png in Resources */,
 				514298D3176B988B00F4A514 /* button_green.png in Resources */,
+				5142990D176F434100F4A514 /* CreateGameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,6 +862,8 @@
 				5142978B176B679800F4A514 /* PokerGameViewController.m in Sources */,
 				514298CE176B95B200F4A514 /* ServerSelectionViewController.m in Sources */,
 				514298D7176B9A8500F4A514 /* GameSettingsManager.m in Sources */,
+				5142990C176F434100F4A514 /* CreateGameViewController.m in Sources */,
+				5142991117709DC500F4A514 /* CardImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

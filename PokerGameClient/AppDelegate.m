@@ -2,7 +2,6 @@
 //  AppDelegate.m
 //  PokerGameClient
 //
-//  Created by Jacob Kanipe-Illig on 6/14/13.
 //  Copyright (c) 2013 jacobhyphenated. All rights reserved.
 //
 
@@ -18,11 +17,8 @@
     
     self.mainPokerVC = [[PokerGameViewController alloc] initWithNibName:@"PokerGameViewController" bundle:nil];
     self.window.rootViewController = self.mainPokerVC;
-    NSLog(@"Root controller sert");
     
     [self.window makeKeyAndVisible];
-    
-    NSLog(@"Make Key and Visible");
     
     return YES;
 }
