@@ -15,14 +15,14 @@
 @interface PokerGameViewController (){
     NSArray *playerList;
     NSTimer *blindTimer;
+    NSInteger timerMillis;
 }
 
 @end
 
 @implementation PokerGameViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -30,8 +30,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     
     self.seatingTableView.delegate = self;
@@ -151,6 +150,7 @@
 }
 
 - (IBAction)startHandButtonTap:(id)sender {
+    //TODO need spinner
     NSString* serverURL = [GameSettingsManager getServerURL];
     NSInteger gameId = [GameSettingsManager getGameId];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",serverURL, @"starthand"]];
@@ -177,19 +177,115 @@
 }
 
 - (IBAction)endHandButtonTap:(id)sender {
-    //TODO - Display end hand information?
+    NSString* serverURL = [GameSettingsManager getServerURL];
+    NSInteger gameId = [GameSettingsManager getGameId];
+    NSInteger handId = [GameSettingsManager getHandId];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",serverURL, @"endhand"]];
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:gameId], @"gameId", [NSNumber numberWithInt:handId], @"handId",  nil];
+    NSURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if(!![JSON valueForKey:@"success"]){
+            [self getGameStatus];
+        }else{
+            [self endHandFail];
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id param){
+        NSLog(@"%@",error);
+        NSLog(@"%@",param);
+        [self endHandFail];
+    }];
+    [operation start];
 }
 
 - (IBAction)dealFlopButtonTap:(id)sender {
-    //TODO - Transition from preflop-->flop
-}
+    NSString* serverURL = [GameSettingsManager getServerURL];
+    NSInteger gameId = [GameSettingsManager getGameId];
+    NSInteger handId = [GameSettingsManager getHandId];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",serverURL, @"flop"]];
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:gameId], @"gameId", [NSNumber numberWithInt:handId], @"handId",  nil];
+    NSURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        //Animate each flop card into view
+        NSString *card1ID = [JSON valueForKey:@"card1"];
+        NSString *card2ID = [JSON valueForKey:@"card2"];
+        NSString *card3ID = [JSON valueForKey:@"card3"];
+        [self animateDealCard:self.card1 identifier:card1ID withDelay:0];
+        [self animateDealCard:self.card2 identifier:card2ID withDelay:.2];
+        [self animateDealCard:self.card3 identifier:card3ID withDelay:.4];
+        
+        //Wait until new cards are animated in, then update game status with new info for the flop.
+        double delayInSeconds = .7;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self getGameStatus];
+        });
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id param){
+        NSLog(@"%@",error);
+        NSLog(@"%@",param);
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not deal the flop" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [message show];
+    }];
+    [operation start];}
 
 - (IBAction)dealTurnButtonTap:(id)sender {
-    //TODO - Transition from flop-->turn
+    NSString* serverURL = [GameSettingsManager getServerURL];
+    NSInteger gameId = [GameSettingsManager getGameId];
+    NSInteger handId = [GameSettingsManager getHandId];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",serverURL, @"turn"]];
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:gameId], @"gameId", [NSNumber numberWithInt:handId], @"handId",  nil];
+    NSURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        //Animate each flop card into view
+        NSString *card4ID = [JSON valueForKey:@"card4"];
+        [self animateDealCard:self.card4 identifier:card4ID withDelay:0];
+        
+        //Wait until new cards are animated in, then update game status with new info for the flop.
+        double delayInSeconds = .3;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self getGameStatus];
+        });
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id param){
+        NSLog(@"%@",error);
+        NSLog(@"%@",param);
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not deal the turn" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [message show];
+    }];
+    [operation start];
 }
 
 - (IBAction)dealRiverButtonTap:(id)sender {
-    //TODO - Transition from turn-->river
+    NSString* serverURL = [GameSettingsManager getServerURL];
+    NSInteger gameId = [GameSettingsManager getGameId];
+    NSInteger handId = [GameSettingsManager getHandId];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",serverURL, @"river"]];
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:gameId], @"gameId", [NSNumber numberWithInt:handId], @"handId",  nil];
+    NSURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        //Animate each flop card into view
+        NSString *card5ID = [JSON valueForKey:@"card5"];
+        [self animateDealCard:self.card5 identifier:card5ID withDelay:0];
+        
+        //Wait until new cards are animated in, then update game status with new info for the flop.
+        double delayInSeconds = .3;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self getGameStatus];
+        });
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id param){
+        NSLog(@"%@",error);
+        NSLog(@"%@",param);
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not deal the river" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [message show];
+    }];
+    [operation start];
 }
 
 #pragma mark - UITableView Delegate Methods
@@ -312,6 +408,14 @@
     [self.card5 setHidden:NO];
 }
 
+-(void) endHandState: (id)JSON{
+    [self riverState:JSON];
+    
+    [self.endHandButton setHidden:YES];
+    [self.startHandButton setHidden:NO];
+    self.stateLabel.text = @"End Hand";
+}
+
 -(void) setInHandUIState:(id)JSON{
     NSString *smallBlind = [JSON valueForKey:@"smallBlind"];
     NSString *bigBlind = [JSON valueForKey:@"bigBlind"];
@@ -327,9 +431,8 @@
     
     self.potChips.alpha = 1;
     self.potChipsLabel.alpha = 1;
-    self.potChips.text = [JSON valueForKey:@"chips"];
+    self.potChips.text = [NSString stringWithFormat:@"%i", [[JSON valueForKey:@"pot"] intValue]];
 }
-
 
 #pragma mark - Private Helper Methods
 
@@ -361,10 +464,12 @@
         else if([gameStatus isEqualToString:@"RIVER"]){
             [self riverState:JSON];
         }
+        else if([gameStatus isEqualToString:@"END_HAND"]){
+            [self endHandState:JSON];
+        }
         else{
             NSLog(@"ERROR STATE: %@", gameStatus );
         }
-        //TODO - end hand
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id param){
         NSLog(@"%@",error);
@@ -390,24 +495,55 @@
     [message show];
 }
 
+-(void) endHandFail{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not end hand" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [message show];
+}
+
+-(void) animateDealCard:(UIImageView *)cardView identifier:(NSString *) cardIdentifier withDelay:(NSTimeInterval)delay{
+    //Copy the card view's frame to modify postions. Use __block to allow modifying the CGRect in the block
+    
+    __block CGRect cardFrame = cardView.frame;
+    NSLog(@"Pre Animation | x: %f, y: %f with (%f,%f)",cardFrame.origin.x, cardFrame.origin.y, cardFrame.size.width, cardFrame.size.height);
+    
+    //Move card off the view port to the top
+    int cardY = cardFrame.origin.y;
+    int cardX = cardFrame.origin.x;
+    cardFrame.origin.y = - 150;
+    cardFrame.origin.x = - 250;
+    cardView.frame = cardFrame;
+    
+    //Reveal card and set appropriate card image
+    [cardView setHidden:NO];
+    cardView.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:cardIdentifier]];
+     NSLog(@"Before Animation | x: %f, y: %f with (%f,%f)",cardFrame.origin.x, cardFrame.origin.y, cardFrame.size.width, cardFrame.size.height);
+    [UIView animateWithDuration:.3 delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        //Animate card back to original location
+        cardFrame.origin.y = cardY;
+        cardFrame.origin.x = cardX;
+        cardView.frame = cardFrame;
+         NSLog(@"Post Animation | x: %f, y: %f with (%f,%f)",cardFrame.origin.x, cardFrame.origin.y, cardFrame.size.width, cardFrame.size.height);
+    }completion:nil];
+}
+
 #pragma mark -Timer Methods
 -(void) startBlindTimerCountdown:(NSInteger)timeInMillis{
     [blindTimer invalidate];
-    blindTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blindTimerTriggered:) userInfo:[NSNumber numberWithInt:timeInMillis] repeats:YES];
+    timerMillis = timeInMillis;
+    blindTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blindTimerTriggered:) userInfo:nil repeats:YES];
 }
 
 -(void) blindTimerTriggered:(NSTimer *)timer{
-    NSNumber *millis = timer.userInfo;
-    NSInteger millisLeft = [millis intValue];
-    if(millisLeft <= 0){
+    if(timerMillis <= 0){
         [blindTimer invalidate];
         self.blindTimerLabel.text = @"0:00";
         return;
     }
-    NSInteger secondsTotal = millisLeft / 1000;
+    NSInteger secondsTotal = timerMillis / 1000;
     NSInteger minutesTotal = secondsTotal / 60;
     NSInteger seconds = secondsTotal % 60;
-    self.blindTimerLabel.text = [NSString stringWithFormat:@"%i:%i",minutesTotal,seconds];
+    self.blindTimerLabel.text = [NSString stringWithFormat:@"%d:%02d",minutesTotal,seconds];
+    timerMillis = timerMillis - 1000;
 }
 
 @end
