@@ -82,7 +82,7 @@
         NSInteger gameId = [[JSON valueForKey:@"gameId"] intValue];
         if(gameId > 0){
             [GameSettingsManager saveGameId:gameId];
-            [self dismissModalViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         else{
             [self createRequestFail];

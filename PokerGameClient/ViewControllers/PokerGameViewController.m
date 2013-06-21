@@ -59,6 +59,7 @@
     [self.gameIdLabel setHidden:YES];
     self.stateLabel.text = @"Waiting...";
     self.blindsLabel.text = @"not started";
+    self.blindTimerLabel.text = @"";
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -133,7 +134,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:gameId], @"gameId", nil];
     NSURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        if(!![JSON valueForKey:@"success"]){
+        if([[JSON valueForKey:@"success"] boolValue]){
             self.stateLabel.text = @"Starting...";
             [self getGameStatus];
         }
@@ -185,7 +186,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:gameId], @"gameId", [NSNumber numberWithInt:handId], @"handId",  nil];
     NSURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        if(!![JSON valueForKey:@"success"]){
+        if([[JSON valueForKey:@"success"] boolValue]){
             [self getGameStatus];
         }else{
             [self endHandFail];

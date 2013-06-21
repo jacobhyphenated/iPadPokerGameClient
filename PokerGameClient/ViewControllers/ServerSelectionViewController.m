@@ -51,7 +51,7 @@
     //TODO
     NSLog(@"Save BUtton tap");
     [GameSettingsManager saveServerUrl:self.serverURLTextField.text];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -networking methods

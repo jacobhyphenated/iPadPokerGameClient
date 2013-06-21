@@ -978,7 +978,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PokerGameClient/PokerGameClient-Prefix.pch";
 				INFOPLIST_FILE = "PokerGameClient/PokerGameClient-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -990,7 +990,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PokerGameClient/PokerGameClient-Prefix.pch";
 				INFOPLIST_FILE = "PokerGameClient/PokerGameClient-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1049,6 +1049,7 @@
 				51429776176B615B00F4A514 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		51429777176B615B00F4A514 /* Build configuration list for PBXNativeTarget "PokerGameClientTests" */ = {
 			isa = XCConfigurationList;
@@ -1057,6 +1058,7 @@
 				51429779176B615B00F4A514 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
