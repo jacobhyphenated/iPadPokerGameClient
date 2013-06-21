@@ -17,6 +17,8 @@ The basic functionality for this project is complete.  However, much more needs 
 
 Obviously there is not much design work, and a lot of the UX is in desperate need of improvement.  I will be working on this intermittently, but pull requests are welcome :)
 
+This project uses AFNetworking (https://github.com/AFNetworking/AFNetworking) as a submodule.  Make sure to initialize the submodules when cloning the repository.
+
 License
 ---
 The MIT License (MIT)
