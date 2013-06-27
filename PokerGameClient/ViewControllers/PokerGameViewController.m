@@ -505,7 +505,6 @@
     //Copy the card view's frame to modify postions. Use __block to allow modifying the CGRect in the block
     
     __block CGRect cardFrame = cardView.frame;
-    NSLog(@"Pre Animation | x: %f, y: %f with (%f,%f)",cardFrame.origin.x, cardFrame.origin.y, cardFrame.size.width, cardFrame.size.height);
     
     //Move card off the view port to the top
     int cardY = cardFrame.origin.y;
@@ -517,13 +516,11 @@
     //Reveal card and set appropriate card image
     [cardView setHidden:NO];
     cardView.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:cardIdentifier]];
-     NSLog(@"Before Animation | x: %f, y: %f with (%f,%f)",cardFrame.origin.x, cardFrame.origin.y, cardFrame.size.width, cardFrame.size.height);
     [UIView animateWithDuration:.3 delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
         //Animate card back to original location
         cardFrame.origin.y = cardY;
         cardFrame.origin.x = cardX;
         cardView.frame = cardFrame;
-         NSLog(@"Post Animation | x: %f, y: %f with (%f,%f)",cardFrame.origin.x, cardFrame.origin.y, cardFrame.size.width, cardFrame.size.height);
     }completion:nil];
 }
 
