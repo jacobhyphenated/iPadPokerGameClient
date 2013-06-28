@@ -16,6 +16,7 @@
     NSArray *playerList;
     NSTimer *blindTimer;
     NSInteger timerMillis;
+    NSArray *cardViewArray;
 }
 
 @end
@@ -36,6 +37,7 @@
     self.seatingTableView.delegate = self;
     self.seatingTableView.dataSource = self;
     [self.seatingTableView setSeparatorColor:[UIColor clearColor]];
+    cardViewArray =[NSArray arrayWithObjects:self.card1, self.card2, self.card3, self.card4, self.card5, nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -349,16 +351,10 @@
     [self.startHandButton setHidden:YES];
     //Do not show cards
     UIImage *cardBg = [UIImage imageNamed:@"card_bg.png"];
-    [self.card1 setHidden:YES];
-    self.card1.image = cardBg;
-    [self.card2 setHidden:YES];
-    self.card2.image = cardBg;
-    [self.card3 setHidden:YES];
-    self.card3.image = cardBg;
-    [self.card4 setHidden:YES];
-    self.card4.image = cardBg;
-    [self.card5 setHidden:YES];
-    self.card5.image = cardBg;
+    for(UIImageView *card in cardViewArray){
+        [card setHidden:YES];
+        card.image = cardBg;
+    }
     
     [self setInHandUIState:JSON];
     self.stateLabel.text = @"Preflop";
@@ -368,49 +364,22 @@
 -(void) flopState:(id)JSON{
     [self setInHandUIState:JSON];
     self.stateLabel.text = @"Flop";
-    NSArray *cardArray = [JSON valueForKey:@"cards"];
-    self.card1.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:0]]];
-    [self.card1 setHidden:NO];
-    self.card2.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:1]]];
-    [self.card2 setHidden:NO];
-    self.card3.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:2]]];
-    [self.card3 setHidden:NO];
     [self.dealTurnButton setHidden:NO];
 }
 
 -(void) turnState:(id)JSON{
     [self setInHandUIState:JSON];
     self.stateLabel.text = @"Turn";
-    NSArray *cardArray = [JSON valueForKey:@"cards"];
-    self.card1.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:0]]];
-    [self.card1 setHidden:NO];
-    self.card2.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:1]]];
-    [self.card2 setHidden:NO];
-    self.card3.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:2]]];
-    [self.card3 setHidden:NO];
-    self.card4.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:3]]];
-    [self.card4 setHidden:NO];
     [self.dealRiverButton setHidden:NO];
 }
 
 -(void) riverState:(id)JSON{
     [self setInHandUIState:JSON];
     self.stateLabel.text = @"River";
-    NSArray *cardArray = [JSON valueForKey:@"cards"];
-    self.card1.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:0]]];
-    [self.card1 setHidden:NO];
-    self.card2.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:1]]];
-    [self.card2 setHidden:NO];
-    self.card3.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:2]]];
-    [self.card3 setHidden:NO];
-    self.card4.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:3]]];
-    [self.card4 setHidden:NO];
-    self.card5.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:4]]];
-    [self.card5 setHidden:NO];
 }
 
 -(void) endHandState: (id)JSON{
-    [self riverState:JSON];
+    [self setInHandUIState:JSON];
     
     [self.endHandButton setHidden:YES];
     [self.startHandButton setHidden:NO];
@@ -433,6 +402,14 @@
     self.potChips.alpha = 1;
     self.potChipsLabel.alpha = 1;
     self.potChips.text = [NSString stringWithFormat:@"%i", [[JSON valueForKey:@"pot"] intValue]];
+    
+    //Set card images
+    NSArray *cardArray = [JSON valueForKey:@"cards"];
+    for (int i = 0; i < [cardArray count]; i++){
+        UIImageView *card = [cardViewArray objectAtIndex:i];
+        card.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:i]]];
+        [card setHidden:NO];
+    }
 }
 
 #pragma mark - Private Helper Methods
