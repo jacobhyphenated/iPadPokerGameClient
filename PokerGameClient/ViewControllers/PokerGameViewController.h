@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gameIdLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gameIdDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *blindTimerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *sitOutButton;
 
 - (IBAction)clearInfoButtonTap:(id)sender;
 - (IBAction)startGameButtonTap:(id)sender;
@@ -36,6 +37,7 @@
 - (IBAction)dealFlopButtonTap:(id)sender;
 - (IBAction)dealTurnButtonTap:(id)sender;
 - (IBAction)dealRiverButtonTap:(id)sender;
+- (IBAction)sitOutButtonTap:(id)sender;
 
 
 @end

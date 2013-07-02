@@ -56,6 +56,7 @@
     [self.startHandButton setHidden:YES];
     [self.startGameButton setHidden:YES];
     [self.endHandButton setHidden:YES];
+    [self.sitOutButton setHidden:YES];
     [self.seatingTableView setHidden:YES];
     [self.gameIdDescriptionLabel setHidden:YES];
     [self.gameIdLabel setHidden:YES];
@@ -291,6 +292,27 @@
     [operation start];
 }
 
+- (IBAction)sitOutButtonTap:(id)sender {
+    NSString* serverURL = [GameSettingsManager getServerURL];
+    NSInteger handId = [GameSettingsManager getHandId];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",serverURL, @"sitoutcurrent"]];
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:handId], @"handId",  nil];
+    NSURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        //noop.  Assume success. Probably want some UI feedback.
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id param){
+        NSLog(@"%@",error);
+        NSLog(@"%@",param);
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not sit out the current player to act" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [message show];
+    }];
+    [operation start];
+
+}
+
 #pragma mark - UITableView Delegate Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
@@ -384,6 +406,7 @@
     [self.endHandButton setHidden:YES];
     [self.startHandButton setHidden:NO];
     self.stateLabel.text = @"End Hand";
+    [self.sitOutButton setHidden:YES];
 }
 
 -(void) setInHandUIState:(id)JSON{
@@ -410,6 +433,8 @@
         card.image = [UIImage imageNamed:[CardImageManager imageIdentifierFromKey:[cardArray objectAtIndex:i]]];
         [card setHidden:NO];
     }
+    
+    [self.sitOutButton setHidden:NO];
 }
 
 #pragma mark - Private Helper Methods

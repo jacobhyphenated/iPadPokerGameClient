@@ -403,11 +403,11 @@
 		5142974B176B615A00F4A514 /* PokerGameClient */ = {
 			isa = PBXGroup;
 			children = (
-				5142990E176F434B00F4A514 /* XIBs */,
-				514298D4176B9A5200F4A514 /* Managers */,
-				51429787176B677000F4A514 /* ViewControllers */,
 				5142977A176B622D00F4A514 /* Images */,
+				514298D4176B9A5200F4A514 /* Managers */,
 				5142974C176B615A00F4A514 /* Supporting Files */,
+				51429787176B677000F4A514 /* ViewControllers */,
+				5142990E176F434B00F4A514 /* XIBs */,
 			);
 			path = PokerGameClient;
 			sourceTree = "<group>";
