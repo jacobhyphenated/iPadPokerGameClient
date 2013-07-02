@@ -9,7 +9,7 @@ Version
 ----
 This project will work with iOS 6.0+
 
-This application is designed to work with Poker Server API Version 0.1. This is subject to change.
+This application is designed to work with Poker Server API Version 0.4. This is subject to change.
 
 Development
 ----
