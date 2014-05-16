@@ -5,6 +5,8 @@ This is an iPad application designed to work with the Poker Server: https://gith
 
 This is a basic iPad app that can serve as the game controller for a texas holdem poker game.  The game controller displays the community cards, decides when to deal the cards, and decides when to end the hand.  Player clients are used to represent the players in the game; these are a separate project.
 
+**I have every intention of completely re-writing this application for iOS7. Until then, there will be no further active development on this project.**
+
 Version
 ----
 This project will work with iOS 6.0+
